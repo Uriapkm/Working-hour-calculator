@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Work Hours Calculator</title>
+<style>
+body {
+  font-family: 'VT323', monospace;
+  background-color: #8fbf68; /* Verde claro - Color característico de la Game Boy */
+  color: #3f6c38; /* Verde oscuro */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  flex-direction: column;
+}
+.container {
+  background-color: #e0f4dc; /* Verde claro */
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+h1 {
+  text-align: center;
+  font-size: 2em; /* Tamaño grande para un aspecto retro */
+}
+.author {
+  margin-top: 10px;
+  font-size: 1.1em;
+  color: #3f6c38; /* Verde oscuro */
+  font-weight: bold;
+}
+form {
+  margin-top: 20px;
+  text-align: left;
+}
+label {
+  font-weight: bold;
+  color: #3f6c38; /* Verde oscuro */
+}
+input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  margin-bottom: 16px;
+  border: 1px solid #3f6c38; /* Borde verde oscuro */
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #c6e3b6; /* Verde claro */
+  color: #3f6c38; /* Verde oscuro */
+}
+button {
+  background-color: #e85a4f; /* Rojo - Contraste con el verde */
+  color: #ffffff; /* Texto blanco */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+}
+button:hover {
+  background-color: #d65a50; /* Rojo más oscuro al pasar el cursor */
+}
+#result {
+  margin-top: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>Work Hours Calculator</h1>
+<div class="author">by Asier Uria</div>
+<form id="calculator-form">
+<label for="hours-to-work">1. Hours to Work:</label>
+<input type="number" id="hours-to-work" required>
+<label for="absence-hours">2. Absence on Business Hour:</label>
+<input type="number" id="absence-hours" required>
+<label for="attendance-hours">3. Attendance Hours:</label>
+<input type="number" id="attendance-hours" required>
+<label for="justified-absences">4. Justified Absence Hours:</label>
+<input type="number" id="justified-absences" required>
+<label for="discount-hours">5. Hour to Discount:</label>
+<input type="number" id="discount-hours" required>
+<label for="hours-worked-today">6. Hours Worked Today:</label>
+<input type="number" id="hours-worked-today" required>
+<button type="button" onclick="calculateHours()">Calculate</button>
+</form>
+<div id="result"></div>
+</div>
+<script>
+function calculateHours() {
+var hoursToWork = parseFloat(document.getElementById('hours-to-work').value);
+var absenceHours = parseFloat(document.getElementById('absence-hours').value);
+var attendanceHours = parseFloat(document.getElementById('attendance-hours').value);
+var justifiedAbsences = parseFloat(document.getElementById('justified-absences').value);
+var discountHours = parseFloat(document.getElementById('discount-hours').value);
+var hoursWorkedToday = parseFloat(document.getElementById('hours-worked-today').value);
+var hoursOwed = hoursToWork + discountHours - attendanceHours - absenceHours - justifiedAbsences - hoursWorkedToday;
+var resultElement = document.getElementById('result');
+if (hoursOwed > 0) {
+resultElement.innerHTML = '<p>You owe ' + hoursOwed + ' hours to your company.</p>';
+} else if (hoursOwed < 0) {
+resultElement.innerHTML = '<p>Your company owes you ' + Math.abs(hoursOwed) + ' hours.</p>';
+} else {
+resultElement.innerHTML = '<p>You neither owe hours nor your company owes you hours.</p>';
+}
+}
+</script>
+</body>
+</html>
